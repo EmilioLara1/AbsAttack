@@ -3,6 +3,19 @@ from tkinter import *
 from PIL import Image, ImageTk
 from urllib.request import urlopen
 from io import BytesIO
+import paramiko
+from tkterm import Terminal
+import sys
+from test import *
+
+#SSH conexion
+user = "emiliolara"
+password = "Emlar245"
+ip="Emilio-MAC.local"
+comm="ls"
+
+
+
 
 def on_frame_configure(event):
     canvas.configure(scrollregion=canvas.bbox("all"))
@@ -13,7 +26,7 @@ def on_main_window_resize(event):
 
 main_screen = tk.Tk()
 main_screen.title("AbsAttack")
-main_screen.geometry("860x560")
+main_screen.geometry ("860x560")
 main_screen.bind("<Configure>", on_main_window_resize)
 
 # URL de la imagen
@@ -80,7 +93,7 @@ def def_attack3():
     messageWindow = Toplevel(main_screen)
     messageWindow.title("Defensa de ataque 3")
     messageWindow.geometry("860x560")
-    Label(messageWindow, text="Esta es la defensa del ataqu 3").pack()
+    Label(messageWindow, text="Esta es la defensa del ataque 3").pack()
     main_screen.withdraw()
 
     def on_closing():
@@ -98,12 +111,28 @@ reset.grid(row=3, column=0, padx=10, pady=10, sticky="nsew")
 image_label = Label(frame, image=photo, bg="black")
 image_label.grid(row=0, column=1, rowspan=4, padx=10, pady=10, sticky="nsew")
 
+
+
 # Columna de botones a la derecha
 def attack1():
     messageWindow = Toplevel(main_screen)
     messageWindow.title("Ataque nivel 1")
     messageWindow.geometry("860x560")
     Label(messageWindow, text="Este es el ataque de nivel 1").pack()
+
+    #Conexion ssh
+    client = paramiko.client.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(ip, username=user, password=password)
+    #Se ejecuta comando
+    _stdin, _stdout,_stderr = client.exec_command("ls")
+    print(_stdout.read().decode())
+
+    ##### Poner salida en pantalla
+    client.close()
+
+
+    
     main_screen.withdraw()
 
     def on_closing():

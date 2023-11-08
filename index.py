@@ -133,9 +133,9 @@ def attack1():
     sub.pack(side=TOP)
 
 
-    """ #Descomentar para agregar boton si no pasa ssh
-    #Regresar a menu principal
-    btn_back= Button(messageWindow, text="Regresar", font=12, height=5, width=30,bg="black", fg="white", command=lambda: main_screen.tkraise()).pack()
+    #Descomentar para agregar boton si no pasa ssh
+    """ #Regresar a menu principal
+    btn_back= Button(messageWindow, text="Regresar", font=12, height=4, width=30,bg="black", fg="white", command=lambda: main_screen.tkraise()).pack()
     btn_back.grid(row=0, column=1,padx=10, pady=10, sticky="nsew") """
 
 
@@ -162,7 +162,7 @@ def attack1():
 
     ###### Botones
     #Regresar a menu principal
-    btn_back= Button(messageWindow, text="Regresar", font=12, height=5, width=30,bg="black", fg="white", command=lambda: main_screen.tkraise()).pack()
+    btn_back= Button(messageWindow, text="Regresar", font=12, height=4, width=30,bg="black", fg="white", command=lambda: main_screen.tkraise()).pack()
     btn_back.grid(row=0,column=1,padx=10, pady=10, sticky="nsew")
     
     main_screen.withdraw()
@@ -172,7 +172,7 @@ def attack1():
         main_screen.deiconify()
     messageWindow.protocol("WM_DELETE_WINDOW", on_closing)
 
-atk1 = tk.Button(frame, text="prueba de ataque 1", bg="black", fg="white", command=attack1)
+atk1 = tk.Button(frame, text="Prueba de ataque 1", bg="black", fg="white", command=attack1)
 atk1.grid(row=0, column=2, padx=10, pady=10, sticky="nsew")
 
 def attack2():

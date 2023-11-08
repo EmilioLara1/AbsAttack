@@ -127,6 +127,9 @@ def attack1():
     #Se ejecuta comando
     _stdin, _stdout,_stderr = client.exec_command("ls")
     print(_stdout.read().decode())
+    string = str(_stdout.read().decode())
+    print(string)
+    
 
     ##### Poner salida en pantalla
     client.close()

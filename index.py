@@ -6,6 +6,9 @@ from io import BytesIO
 import paramiko
 from tkterm import Terminal
 from test import *
+from pycomm.ab_comm import LogixDriver
+
+
 
 #SSH conexion
 #Colocar aqui las credenciales, ip de la maquina a conectar y el comando
@@ -13,6 +16,7 @@ user = ""
 password = ""
 ip=""
 comm="ls"
+
 
 
 
@@ -139,8 +143,15 @@ def attack1():
     #print(type(string))
     t = Label(messageWindow, text=string, bg="black", fg="white", font="Helvetica 12")
     t.pack(side=TOP)
-
     client.close()
+
+
+###### Conexion a PLC
+    """  with LogixDriver('192.168.1.1') as plc:
+        plc.open()
+        if plc.read_tag('Tag1'):
+            print('Lectura exitosa')
+        plc.close() """
 
     ###### Botones
     #Regresar a menu principal

@@ -6,7 +6,7 @@ from io import BytesIO
 import paramiko
 from tkterm import Terminal
 from test import *
-from pycomm.ab_comm import LogixDriver
+#from pycomm.ab_comm import LogixDriver
 
 
 
@@ -132,6 +132,13 @@ def attack1():
     sub = Label(messageWindow, text="Listado de directorio", font="Helvetica 20", bg="black", fg="white")
     sub.pack(side=TOP)
 
+
+    """ #Descomentar para agregar boton si no pasa ssh
+    #Regresar a menu principal
+    btn_back= Button(messageWindow, text="Regresar", font=12, height=5, width=30,bg="black", fg="white", command=lambda: main_screen.tkraise()).pack()
+    btn_back.grid(row=0, column=1,padx=10, pady=10, sticky="nsew") """
+
+
     #Conexion ssh
     client = paramiko.client.SSHClient()
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
@@ -155,8 +162,8 @@ def attack1():
 
     ###### Botones
     #Regresar a menu principal
-    btn_back= Button(messageWindow, text="Regresar",bg="black", fg="white", command=lambda: main_screen.tkraise()).pack()
-    btn_back.grid(row=0, column=1,padx=10, pady=10, sticky="nsew")
+    btn_back= Button(messageWindow, text="Regresar", font=12, height=5, width=30,bg="black", fg="white", command=lambda: main_screen.tkraise()).pack()
+    btn_back.grid(row=0,column=1,padx=10, pady=10, sticky="nsew")
     
     main_screen.withdraw()
 

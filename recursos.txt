@@ -1,0 +1,5 @@
+Push firewall rules a palo alto:
+https://gist.github.com/kubsoo/cf5880a46bd69300c746f8daaf27859e
+
+Agregar regla a windows defender:;
+https://codereview.stackexchange.com/questions/211163/add-and-enable-disable-windows-firewall-rules-with-python

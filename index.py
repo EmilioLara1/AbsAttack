@@ -5,13 +5,13 @@ from urllib.request import urlopen
 from io import BytesIO
 import paramiko
 from tkterm import Terminal
-import sys
 from test import *
 
 #SSH conexion
-user = "emiliolara"
-password = "Emlar245"
-ip="Emilio-MAC.local"
+#Colocar aqui las credenciales, ip de la maquina a conectar y el comando
+user = ""
+password = ""
+ip=""
 comm="ls"
 
 
@@ -26,7 +26,9 @@ def on_main_window_resize(event):
 
 main_screen = tk.Tk()
 main_screen.title("AbsAttack")
-main_screen.geometry ("860x560")
+#main_screen.geometry ("860x560")
+#permite pantalla fullscreen
+main_screen.attributes('-fullscreen', True)
 main_screen.bind("<Configure>", on_main_window_resize)
 
 # URL de la imagen
@@ -117,8 +119,14 @@ image_label.grid(row=0, column=1, rowspan=4, padx=10, pady=10, sticky="nsew")
 def attack1():
     messageWindow = Toplevel(main_screen)
     messageWindow.title("Ataque nivel 1")
-    messageWindow.geometry("860x560")
-    Label(messageWindow, text="Este es el ataque de nivel 1").pack()
+    #messageWindow.geometry("860x560")
+    #permite pantalla fullscreen
+    messageWindow.attributes('-fullscreen', True)
+    messageWindow.config(background="black")
+    tit = Label(messageWindow, text="Este es el ataque de nivel 1", font="Helvetica 20 bold", bg="black", fg="white")
+    tit.pack(pady=50)
+    sub = Label(messageWindow, text="Listado de directorio", font="Helvetica 20", bg="black", fg="white")
+    sub.pack(side=TOP)
 
     #Conexion ssh
     client = paramiko.client.SSHClient()
@@ -126,22 +134,24 @@ def attack1():
     client.connect(ip, username=user, password=password)
     #Se ejecuta comando
     _stdin, _stdout,_stderr = client.exec_command("ls")
-    print(_stdout.read().decode())
+    #print(_stdout.read().decode())
     string = str(_stdout.read().decode())
-    print(string)
-    
+    #print(type(string))
+    t = Label(messageWindow, text=string, bg="black", fg="white", font="Helvetica 12")
+    t.pack(side=TOP)
 
-    ##### Poner salida en pantalla
     client.close()
 
-
+    ###### Botones
+    #Regresar a menu principal
+    btn_back= Button(messageWindow, text="Regresar",bg="black", fg="white", command=lambda: main_screen.tkraise()).pack()
+    btn_back.grid(row=0, column=1,padx=10, pady=10, sticky="nsew")
     
     main_screen.withdraw()
 
     def on_closing():
         messageWindow.destroy()
         main_screen.deiconify()
-
     messageWindow.protocol("WM_DELETE_WINDOW", on_closing)
 
 atk1 = tk.Button(frame, text="prueba de ataque 1", bg="black", fg="white", command=attack1)
@@ -184,6 +194,8 @@ def done():
 
 dne = tk.Button(frame, text="Salir", bg="black", fg="white", command=done)
 dne.grid(row=3, column=2, padx=10, pady=10, sticky="nsew")
+
+
 
 # resize automatico
 for i in range(4):

